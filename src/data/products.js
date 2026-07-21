@@ -34,11 +34,6 @@ export const categories = [
     name: "منتجات الأطفال",
     img: "/images/categories/category (7).svg",
   },
-  {
-    id: "all",
-    name: "عرض الكل",
-    img: "/images/categories/category (1).svg", // or reuse another icon
-  },
 ];
 
 export const productTypes = [

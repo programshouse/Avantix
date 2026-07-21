@@ -80,7 +80,7 @@ export function ProductCard({ product, offer = false }) {
             className="
               rounded-full bg-[#eaf2fe]
               px-3 py-1 text-[10px]
-              font-medium text-[#2d70d6]
+              font-medium text-primary
               sm:text-[11px]
             "
           >
@@ -111,7 +111,7 @@ export function ProductCard({ product, offer = false }) {
 
         {/* Price */}
         <div className="mt-3 flex items-center justify-start gap-2">
-          <span className="text-[12px] font-bold text-[#0c5edd] sm:text-[13px]">
+          <span className="text-[12px] font-bold text-primary sm:text-[13px]">
             {product.price} جنيهًا
           </span>
 
@@ -129,7 +129,7 @@ export function ProductCard({ product, offer = false }) {
           className="
             mt-4 flex h-[38px] w-full
             items-center justify-center gap-2
-            rounded-[12px] bg-[#0c5edd]
+            rounded-[12px] bg-primary
             text-[11px] font-medium text-white
             transition-colors duration-300
             hover:bg-[#094bb3]

@@ -64,8 +64,8 @@ export function FeaturedSection() {
                     lg:px-6 lg:py-2.5 lg:text-[14px]
                     ${
                       isActive
-                        ? "bg-[#0757c9] text-white shadow-sm"
-                        : "bg-[#f1f1f1] text-[#858585] hover:bg-[#e8eef9] hover:text-[#0757c9]"
+                        ? "bg-primary text-white shadow-sm"
+                        : "bg-[#f1f1f1] text-[#858585] hover:bg-[#e8eef9] hover:text-primary"
                     }
                   `}
                 >
