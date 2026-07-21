@@ -12,8 +12,8 @@ export default function Home() {
       <CategoriesSection />
       <FeaturedSection />
       <PromoBanners />
-      {/* <OffersSection />
-      <AboutSection /> */}
+      <OffersSection />
+      {/* <AboutSection /> */}
     </main>
   )
 }
