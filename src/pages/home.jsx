@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <main className="overflow-hidden bg-background">
       <HeroSection />
-      {/* <CategoriesSection />
-      <FeaturedSection />
+      <CategoriesSection />
+      {/* <FeaturedSection />
       <PromoBanners />
       <OffersSection />
       <AboutSection /> */}

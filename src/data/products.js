@@ -1,13 +1,45 @@
 export const categories = [
-  { id: "skin", name: "العناية بالبشرة", img: "/products/cream.png" },
-  { id: "vitamins", name: "الفيتامينات", img: "/products/hero-supplements.png" },
-  { id: "medicine", name: "الأدوية", img: "/products/medicine-box.png" },
-  { id: "cosmetics", name: "مستحضرات التجميل", img: "/products/serum.png" },
-  { id: "supplements", name: "المكملات الغذائية", img: "/products/hero-supplements.png" },
-  { id: "care", name: "العناية الشخصية", img: "/products/cleanser.png" },
-  { id: "baby", name: "منتجات الأطفال", img: "/products/cream.png" },
-  { id: "all", name: "عرض الكل", img: "/products/serum.png" },
-]
+  {
+    id: "skin",
+    name: "العناية بالبشرة",
+    img: "/images/categories/category (1).svg",
+  },
+  {
+    id: "vitamins",
+    name: "الفيتامينات",
+    img: "/images/categories/category (2).svg",
+  },
+  {
+    id: "medicine",
+    name: "الأدوية",
+    img: "/images/categories/category (3).svg",
+  },
+  {
+    id: "cosmetics",
+    name: "مستحضرات التجميل",
+    img: "/images/categories/category (4).svg",
+  },
+  {
+    id: "supplements",
+    name: "المكملات الغذائية",
+    img: "/images/categories/category (5).svg",
+  },
+  {
+    id: "care",
+    name: "العناية الشخصية",
+    img: "/images/categories/category (6).svg",
+  },
+  {
+    id: "baby",
+    name: "منتجات الأطفال",
+    img: "/images/categories/category (7).svg",
+  },
+  {
+    id: "all",
+    name: "عرض الكل",
+    img: "/images/categories/category (1).svg", // or reuse another icon
+  },
+];
 
 export const productTypes = [
   "أدوية القلب",
