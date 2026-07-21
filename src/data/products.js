@@ -54,7 +54,7 @@ export const productTypes = [
 
 export const brands = ["Acdima", "ADCO", "Adwia", "Biomed", "Bayer", "GSK", "Pfizer", "Sanofi"]
 
-const img = ["/products/cleanser.png", "/products/serum.png", "/products/cream.png", "/products/medicine-box.png"]
+const img = ["/images/categories/category (1).svg", "/images/categories/category (2).svg", "/images/categories/category (3).svg", "/images/categories/category (4).svg"]
 
 export const products = Array.from({ length: 12 }).map((_, i) => ({
   id: i + 1,

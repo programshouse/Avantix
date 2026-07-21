@@ -1,49 +1,148 @@
 import { Star, ShoppingCart } from "lucide-react"
-import { Card } from "./ui/card"
-import { Badge } from "./ui/badge"
-import { Button } from "./ui/button"
 import { useCart } from "@/context/cart-context"
 
 export function ProductCard({ product, offer = false }) {
   const { addItem } = useCart()
 
   return (
-    <Card className="flex flex-col overflow-hidden transition-shadow hover:shadow-md">
-      <div className="relative flex h-44 items-center justify-center bg-secondary/60">
-        <div className="absolute inset-x-6 bottom-0 top-6 rounded-t-full bg-white/70" aria-hidden="true" />
+    <article
+      dir="rtl"
+      className="
+        group relative mx-auto mt-[70px]
+        flex w-full max-w-[260px] flex-col
+        rounded-t-[120px] rounded-b-[18px]
+        border border-[#ececec] bg-white
+        shadow-[0_10px_25px_rgba(0,0,0,0.07)]
+        transition-all duration-300
+        hover:-translate-y-1
+        hover:shadow-[0_18px_35px_rgba(0,0,0,0.12)]
+        sm:max-w-[275px]
+        lg:max-w-[290px]
+      "
+    >
+      {/* Rounded background */}
+      <div
+        className="
+          relative z-0 flex h-[180px]
+          items-end justify-center
+          overflow-hidden rounded-t-[120px]
+          bg-[#e7effc]
+          sm:h-[195px]
+          lg:h-[210px]
+        "
+      >
         {offer && (
-          <Badge className="absolute right-3 top-3 z-10 bg-accent text-accent-foreground">عرض خاص</Badge>
-        )}
-        <img
-          src={product.image || "/placeholder.svg"}
-          alt={product.name}
-          className="relative z-10 h-36 w-auto object-contain"
-        />
-      </div>
-
-      <div className="flex flex-1 flex-col p-3 text-right">
-        <div className="mb-2 flex items-center justify-between">
-          <Badge className="bg-secondary text-secondary-foreground">{product.tag}</Badge>
-          <span className="flex items-center gap-1 text-xs font-bold text-foreground">
-            <Star className="h-3.5 w-3.5 fill-[var(--color-star)] text-[var(--color-star)]" />
-            {product.rating}
+          <span
+            className="
+              absolute right-5 top-10 z-30
+              rounded-full bg-[#e01f7a]
+              px-3 py-1 text-[10px]
+              font-medium text-white
+            "
+          >
+            عرض خاص
           </span>
-        </div>
-
-        <p className="mb-3 line-clamp-2 min-h-[2.5rem] text-sm font-semibold leading-snug text-foreground">
-          {product.name}
-        </p>
-
-        <div className="mb-3 flex items-center justify-end gap-2">
-          <span className="text-xs text-muted-foreground line-through">{product.oldPrice}</span>
-          <span className="text-sm font-bold text-primary">{product.price} جنيها</span>
-        </div>
-
-        <Button onClick={() => addItem(product)} className="mt-auto w-full" size="sm">
-          <ShoppingCart className="h-4 w-4" />
-          أضف الى السلة
-        </Button>
+        )}
       </div>
-    </Card>
+
+      {/* Floating 3D product image */}
+      <img
+        src={product.image || "/placeholder.svg"}
+        alt={product.name}
+        loading="lazy"
+        className="
+          pointer-events-none absolute
+          left-1/2 top-[-72px] z-20
+          h-[200px] w-auto max-w-[90%]
+          -translate-x-1/2 object-contain
+          drop-shadow-[0_18px_14px_rgba(0,0,0,0.2)]
+          transition-transform duration-300
+          group-hover:-translate-x-1/2
+          group-hover:-translate-y-2
+          group-hover:scale-105
+          sm:top-[-82px] sm:h-[270px]
+          lg:top-[-42px] lg:h-[240px]
+        "
+      />
+
+      {/* Card body */}
+      <div
+        className="
+          relative z-10 flex flex-1 flex-col
+          rounded-b-[18px] bg-white
+          px-4 pb-4 pt-4
+          sm:px-5
+        "
+      >
+        {/* Tag and rating */}
+        <div className="mb-3 flex items-center justify-between">
+          <span
+            className="
+              rounded-full bg-[#eaf2fe]
+              px-3 py-1 text-[10px]
+              font-medium text-[#2d70d6]
+              sm:text-[11px]
+            "
+          >
+            {product.tag || "غسول"}
+          </span>
+
+          <div
+            dir="ltr"
+            className="flex items-center gap-1 text-[11px] font-semibold text-[#333]"
+          >
+            <span>{product.rating || "4.8"}</span>
+
+            <Star className="h-3.5 w-3.5 fill-[#f2b807] text-[#f2b807]" />
+          </div>
+        </div>
+
+        {/* Product title */}
+        <h3
+          className="
+            line-clamp-2 min-h-[42px]
+            text-right text-[12px] font-medium
+            leading-[20px] text-[#1f1f1f]
+            sm:text-[13px]
+          "
+        >
+          {product.name}
+        </h3>
+
+        {/* Price */}
+        <div className="mt-3 flex items-center justify-start gap-2">
+          <span className="text-[12px] font-bold text-[#0c5edd] sm:text-[13px]">
+            {product.price} جنيهًا
+          </span>
+
+          {product.oldPrice && (
+            <span className="text-[10px] text-[#999] line-through sm:text-[11px]">
+              {product.oldPrice}
+            </span>
+          )}
+        </div>
+
+        {/* Add to cart */}
+        <button
+          type="button"
+          onClick={() => addItem(product)}
+          className="
+            mt-4 flex h-[38px] w-full
+            items-center justify-center gap-2
+            rounded-[12px] bg-[#0c5edd]
+            text-[11px] font-medium text-white
+            transition-colors duration-300
+            hover:bg-[#094bb3]
+            focus:outline-none
+            focus:ring-2 focus:ring-[#0c5edd]/30
+            focus:ring-offset-2
+            sm:h-[40px] sm:text-[12px]
+          "
+        >
+          <ShoppingCart className="h-4 w-4" />
+          أضف إلى السلة
+        </button>
+      </div>
+    </article>
   )
 }
