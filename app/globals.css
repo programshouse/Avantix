@@ -37,10 +37,10 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-blue: #0057c8;
-  --color-pink: #d94e8f;
-  --color-yellow: #ffc107;
-  --color-red: #f44336;
+  --color-blue: #0057C8;
+  --color-pink: #D94E8F;
+  --color-yellow: #CC9A06;
+  --color-red: #C3362B;
   --color-white: #ffffff;
   --color-black: #000000;
 
@@ -83,7 +83,7 @@
   --popover-foreground: #000000;
 
   --primary: #0057c8;
-  --primary-foreground: #ffffff;
+  --primary-foreground: #0057C8;
 
   --secondary: #d94e8f;
   --secondary-foreground: #ffffff;

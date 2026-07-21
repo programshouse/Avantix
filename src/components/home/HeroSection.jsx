@@ -54,150 +54,141 @@ export function HeroSection() {
   return (
     <section
       dir="rtl"
-      className="relative overflow-hidden border-t-2 border-primary bg-[#d9e8fa]"
+      className="
+        relative overflow-hidden
+        border-t-2 border-primary
+        bg-[#dce9fa]
+      "
     >
       <div
         className="
-          relative
-          bg-[#d9e8fa]
-          bg-no-repeat
-          lg:min-h-[750px]
-          lg:bg-[url('/images/home/hero.png')]
-          lg:bg-cover
-          lg:bg-center
+          relative mx-auto
+          min-h-[780px] w-full
+      ]
+          bg-[url('/images/home/hero.png')]
+          bg-cover bg-center bg-no-repeat
+
+          max-lg:min-h-0
+          max-lg:bg-none
         "
       >
-        {/* Mobile decorative background */}
-        <div
-          aria-hidden="true"
-          className="
-            pointer-events-none absolute inset-0 overflow-hidden lg:hidden
-          "
-        >
-          <div className="absolute -left-20 -top-24 h-[310px] w-[310px] rounded-full bg-white/25" />
-          <div className="absolute -right-32 top-10 h-[360px] w-[360px] rounded-full border border-white/60 bg-[#b8d5f5]/45" />
+        {/* Mobile background image */}
+        <div className="relative hidden max-lg:block">
+          <img
+            src="/images/home/hero.png"
+            alt=""
+            aria-hidden="true"
+            className="
+              h-[340px] w-full
+              object-cover object-[65%_center]
+              sm:h-[430px]
+            "
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#dce9fa]" />
         </div>
 
+        {/* Desktop text positioned above background */}
         <div
           className="
-            relative mx-auto flex max-w-[1440px] flex-col
-            px-4 pb-6 pt-10
-            sm:px-6 sm:pt-14
-            md:px-10
-            lg:min-h-[750px] lg:px-16 lgpb-0 lg:pt-0
+            absolute z-10
+            left-[9%] top-[125px]
+            w-[390px]
+            text-right
+
+            min-[1200px]:left-[8%]
+            min-[1400px]:left-[9%]
+
+            max-lg:relative
+            max-lg:left-auto max-lg:top-auto
+            max-lg:mx-auto
+            max-lg:-mt-5
+            max-lg:w-full
+            max-lg:max-w-[620px]
+            max-lg:px-5
+            max-lg:pb-8
+            max-lg:text-center
           "
         >
-          <div
+          <h1
             className="
-              flex flex-1 items-start
-              lg:min-h-[570px]
+              text-[48px] font-black
+              leading-[1.35] tracking-tight
+              text-black
+
+              min-[1200px]:text-[52px]
+              min-[1400px]:text-[56px]
+
+              max-lg:text-[44px]
+              max-sm:text-[34px]
             "
           >
-            <div
-              className="
-                relative z-10 mx-auto w-full max-w-[580px] text-center
-                lg:mr-auto lg:ml-0 lg:max-w-[470px] lg:pt-[105px] lg:text-right
-              "
-            >
-              <h1
-                className="
-                  text-[37px] font-black leading-[1.35] tracking-tight text-black
-                  min-[390px]:text-[42px]
-                  sm:text-[48px]
-                  md:text-[54px]
-                  lg:text-[58px] lg:leading-[1.45]
-                "
-              >
-                صحتك
-                <br />
-                أولوية{" "}
-                <span className="text-primary">
-                  لدينا
-                </span>
-              </h1>
+            صحتك
+            <br />
 
-              <p
-                className="
-                  mx-auto mt-4 max-w-[500px]
-                  text-[14px] font-medium leading-[1.9] text-[#252525]
-                  sm:mt-5 sm:text-[16px]
-                  lg:mx-0 lg:text-[17px]
-                "
-              >
-                اكتشف مجموعة واسعة من الأدوية ومنتجات العناية الصحية الأصلية،
-                مع توصيل سريع وآمن إلى باب منزلك.
-              </p>
+            <span className="inline-flex items-baseline gap-3">
+              <span>أولوية</span>
+              <span className="text-primary">لدينا</span>
+            </span>
+          </h1>
 
-              <Link
-                to="/products"
-                className="
-                  mt-5 inline-flex h-[43px] items-center justify-center gap-3
-                  rounded-full bg-primary px-6
-                  text-[14px] font-semibold text-white
-                  shadow-[0_4px_9px_rgba(0,64,170,0.25)]
-                  transition duration-300
-                  hover:-translate-y-0.5 hover:bg-[#043d98]
-                  sm:mt-6
-                "
-              >
-                تسوق الآن
-                <CircleArrowLeft className="h-[17px] w-[17px]" />
-              </Link>
+          <p
+            className="
+              mt-4 text-[15px] font-medium
+              leading-[1.9] text-[#252525]
 
-              <div
-                className="
-                  mx-auto mt-8 grid max-w-[520px] grid-cols-1 gap-3
-                  min-[430px]:grid-cols-3
-                  sm:mt-10
-                  lg:mx-0 lg:max-w-[430px] lg:gap-0 lg:divide-x lg:divide-x-reverse lg:divide-[#929292]
-                "
-              >
-                {features.map((feature) => {
-                  const Icon = feature.icon
+              min-[1400px]:text-[16px]
 
-                  return (
-                    <div
-                      key={feature.id}
-                      className="
-                        flex min-h-[78px] items-center gap-3
-                        rounded-[14px] border border-white/60 bg-white/45
-                        px-4 py-3 text-right
-                        shadow-[0_6px_18px_rgba(64,99,145,0.08)]
-                        backdrop-blur-sm
-                        min-[430px]:flex-col min-[430px]:justify-start min-[430px]:gap-0 min-[430px]:text-center
-                        lg:min-h-[75px] lg:rounded-none lg:border-0 lg:bg-transparent
-                        lg:px-3 lg:py-0 lg:shadow-none lg:backdrop-blur-none
-                      "
-                    >
-                      <div
-                        className="
-                          flex h-10 w-10 shrink-0 items-center justify-center
-                          rounded-full bg-white/70
-                          min-[430px]:mb-2 min-[430px]:h-auto min-[430px]:w-auto min-[430px]:rounded-none min-[430px]:bg-transparent
-                        "
-                      >
-                        <Icon
-                          strokeWidth={2.4}
-                          className="h-[23px] w-[23px] text-[#ee4f9a]"
-                        />
-                      </div>
+              max-lg:mx-auto
+              max-lg:max-w-[520px]
+              max-sm:text-[14px]
+            "
+          >
+            اكتشف مجموعة واسعة من الأدوية ومنتجات العناية الصحية الأصلية، مع
+            توصيل سريع وآمن إلى باب منزلك.
+          </p>
 
-                      <div>
-                        <p className="text-[12px] font-medium leading-5 text-[#686868]">
-                          {feature.title}
-                        </p>
+          <Link
+            to="/products"
+            className="
+              mt-5 inline-flex h-[42px]
+              items-center justify-center gap-3
+              rounded-full bg-primary
+              px-5 text-[13px] font-semibold
+              text-white
+              shadow-[0_5px_10px_rgba(0,64,170,0.25)]
+              transition duration-300
+              hover:-translate-y-0.5
+              hover:bg-[#043d98]
+            "
+          >
+            <span>تسوق الآن</span>
+            <CircleArrowLeft className="h-[17px] w-[17px]" />
+          </Link>
 
-                        <p className="text-[11px] leading-5 text-[#777]">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
+          <Features />
+        </div>
 
+        {/* Offers positioned at bottom of background */}
+        <div
+          className="
+            absolute z-20
+            bottom-[30px] left-1/2
+            w-[calc(100%-80px)]
+            max-w-[1320px]
+            -translate-x-1/2
+
+            max-lg:relative
+            max-lg:bottom-auto
+            max-lg:left-auto
+            max-lg:mt-0
+            max-lg:w-full
+            max-lg:max-w-none
+            max-lg:translate-x-0
+            max-lg:px-4
+            max-lg:pb-7
+          "
+        >
           <OffersStrip />
         </div>
       </div>
@@ -205,140 +196,251 @@ export function HeroSection() {
   )
 }
 
-function OffersStrip() {
+function Features() {
   return (
     <div
       className="
-        relative z-20 mt-10 w-full
-        lg:absolute lg:inset-x-0 lg:bottom-[1px] lg:mt-0 lg:px-8
+        mt-8 grid grid-cols-3
+
+        max-lg:mx-auto
+        max-lg:max-w-[500px]
+
+        max-[470px]:grid-cols-1
       "
     >
-      <div
-        dir="rtl"
+      {features.map((feature, index) => {
+        const Icon = feature.icon
+
+        return (
+          <div
+            key={feature.id}
+            className="
+              relative flex min-h-[70px]
+              flex-col items-center justify-center
+              px-3 text-center
+
+              max-[470px]:min-h-[74px]
+              max-[470px]:flex-row
+              max-[470px]:gap-3
+              max-[470px]:py-3
+            "
+          >
+            {/* Center divider */}
+            {index !== features.length - 1 && (
+              <span
+                aria-hidden="true"
+                className="
+                  absolute left-0 top-1/2
+                  h-[46px] w-px
+                  -translate-y-1/2
+                  bg-[#9aa3ad]
+
+                  max-[470px]:bottom-0
+                  max-[470px]:left-1/2
+                  max-[470px]:top-auto
+                  max-[470px]:h-px
+                  max-[470px]:w-[70%]
+                  max-[470px]:-translate-x-1/2
+                  max-[470px]:translate-y-0
+                "
+              />
+            )}
+
+            <Icon
+              strokeWidth={2.3}
+              className="
+                mb-2 h-[21px] w-[21px]
+                shrink-0 text-[#ed4f99]
+
+                max-[470px]:mb-0
+              "
+            />
+
+            <div className="flex flex-col items-center justify-center">
+              <p className="text-[11px] font-medium leading-[1.6] text-[#666]">
+                {feature.title}
+              </p>
+
+              <p className="text-[10px] leading-[1.6] text-[#777]">
+                {feature.description}
+              </p>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function OffersStrip() {
+  return (
+    <div
+      dir="rtl"
+      className="
+        flex min-h-[124px] w-full
+        items-center overflow-hidden
+        rounded-[14px] bg-white
+        p-3
+        shadow-[0_7px_18px_rgba(15,23,42,0.2)]
+
+        max-lg:flex-col
+        max-lg:items-stretch
+        max-lg:overflow-visible
+        max-lg:rounded-[18px]
+      "
+    >
+      {/* Main discount card */}
+      <Link
+        to="/products"
         className="
-          mx-auto max-w-[1320px]
-          rounded-[18px] bg-white
-          p-3
-          shadow-[0_7px_18px_rgba(15,23,42,0.18)]
-          sm:p-4
-          lg:flex lg:min-h-[148px] lg:items-center lg:overflow-hidden
-          lg:rounded-[16px] lg:p-0
+          flex h-[100px]
+          w-[260px] shrink-0
+          items-center justify-center
+          gap-6 rounded-[12px]
+          bg-primary px-5
+          text-white
+          shadow-[0_4px_10px_rgba(15,23,42,0.18)]
+          transition duration-300
+          hover:bg-[#043d98]
+
+          min-[1400px]:w-[275px]
+
+          max-lg:h-[110px]
+          max-lg:w-full
+          max-lg:justify-between
+          max-lg:px-7
         "
       >
-        {/* Discount card */}
+        <div className="text-right">
+          <p className="text-[11px] font-medium">
+            خصومات تصل إلى
+          </p>
+
+          <p className="mt-1 text-[30px] font-black leading-none">
+            30%
+          </p>
+
+          <p className="mt-3 whitespace-nowrap text-[11px] text-white/90">
+            على المنتجات المختارة
+          </p>
+        </div>
+
+        <img
+          src="/images/home/discount.svg"
+          alt=""
+          className="
+            h-[48px] w-[48px]
+            shrink-0 object-contain
+            brightness-0 invert
+          "
+        />
+      </Link>
+
+      {/* Offers */}
+      <div
+        className="
+          grid h-[92px] min-w-0 flex-1
+          grid-cols-3
+          divide-x divide-x-reverse
+          divide-[#c5c5c5]
+
+          max-lg:mt-3
+          max-lg:flex
+          max-lg:h-auto
+          max-lg:snap-x
+          max-lg:snap-mandatory
+          max-lg:gap-3
+          max-lg:overflow-x-auto
+          max-lg:pb-2
+          max-lg:divide-x-0
+          max-lg:[scrollbar-width:none]
+          max-lg:[&::-webkit-scrollbar]:hidden
+        "
+      >
+        {offers.map((offer) => (
+          <Link
+            key={offer.id}
+            to="/products"
+            className="
+              flex min-w-0
+              items-center justify-center
+              gap-3 px-3
+              transition duration-300
+              hover:bg-[#f7faff]
+
+              max-lg:min-h-[100px]
+              max-lg:min-w-[250px]
+              max-lg:snap-start
+              max-lg:justify-start
+              max-lg:rounded-[13px]
+              max-lg:border
+              max-lg:border-[#e7edf5]
+              max-lg:bg-[#fbfdff]
+              max-lg:px-4
+            "
+          >
+            <img
+              src={offer.image}
+              alt={offer.title}
+              className="
+                h-[62px] w-[48px]
+                shrink-0 object-contain
+              "
+            />
+
+            <div className="min-w-0 text-right">
+              <h3 className="whitespace-nowrap text-[14px] font-medium leading-6 text-[#171717]">
+                {offer.title}
+              </h3>
+
+              {offer.secondTitle && (
+                <p className="whitespace-nowrap text-[14px] font-medium leading-6 text-[#171717]">
+                  {offer.secondTitle}
+                </p>
+              )}
+
+              <p className="mt-1 whitespace-nowrap text-[13px] text-[#888]">
+                {offer.discount}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* All offers button */}
+      <div
+        className="
+          flex h-[100px]
+          w-[210px] shrink-0
+          items-center justify-center
+          px-4
+
+          max-lg:mt-2
+          max-lg:h-auto
+          max-lg:w-full
+          max-lg:px-0
+        "
+      >
         <Link
           to="/products"
           className="
-            flex min-h-[108px] w-full items-center justify-between gap-4
-            rounded-[14px] bg-primary px-5 py-4 text-white
-            shadow-[0_4px_10px_rgba(15,23,42,0.22)]
+            flex h-[52px]
+            items-center justify-center
+            gap-3 rounded-[12px]
+            bg-[#edf4fd]
+            px-5
+            text-[14px] font-bold
+            text-primary
+            shadow-[0_3px_7px_rgba(15,23,42,0.14)]
             transition duration-300
-            hover:bg-[#043d98]
-            sm:min-h-[116px] sm:px-7
-            lg:mx-4 lg:h-[116px] lg:w-auto lg:min-w-[275px]
-            lg:justify-center lg:px-6
+            hover:bg-[#e1ecfa]
+
+            max-lg:w-full
           "
         >
-          <div className="text-right">
-            <p className="text-[12px] font-medium sm:text-[13px]">
-              خصومات تصل إلى
-            </p>
-
-            <p className="mt-1 text-[30px] font-black leading-none sm:text-[32px]">
-              30%
-            </p>
-
-            <p className="mt-3 whitespace-nowrap text-[11px] text-white/90 sm:text-[12px]">
-              على المنتجات المختارة
-            </p>
-          </div>
-
-          <img
-            src="/images/home/discount.svg"
-            alt=""
-            className="
-              h-[52px] w-[52px] shrink-0 object-contain brightness-0 invert
-              sm:h-[58px] sm:w-[58px]
-            "
-          />
+          <ArrowLeft className="h-5 w-5" />
+          <span>عرض كل العروض</span>
         </Link>
-
-        {/* Product offers */}
-        <div
-          className="
-            mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2
-            [scrollbar-width:none]
-            [&::-webkit-scrollbar]:hidden
-            lg:mt-0 lg:grid lg:h-[105px] lg:flex-1
-            lg:grid-cols-3 lg:gap-0 lg:overflow-visible lg:pb-0
-            lg:divide-x lg:divide-x-reverse lg:divide-[#b8b8b8]
-          "
-        >
-          {offers.map((offer) => (
-            <Link
-              key={offer.id}
-              to="/products"
-              className="
-                flex min-h-[105px] min-w-[245px] snap-start items-center
-                justify-start gap-4 rounded-[14px]
-                border border-[#e9eef5] bg-[#fbfdff]
-                px-4 py-3
-                transition duration-300
-                hover:bg-[#f3f7fc]
-                sm:min-w-[280px]
-                lg:min-w-0 lg:justify-center lg:rounded-none lg:border-0
-                lg:bg-white lg:px-4 lg:py-0
-              "
-            >
-              <img
-                src={offer.image}
-                alt={offer.title}
-                className="h-[68px] w-[54px] shrink-0 object-contain lg:h-[72px] lg:w-[56px]"
-              />
-
-              <div className="min-w-0 text-right">
-                <h3 className="whitespace-nowrap text-[15px] font-medium leading-6 text-[#171717] lg:text-[16px]">
-                  {offer.title}
-                </h3>
-
-                {offer.secondTitle && (
-                  <p className="whitespace-nowrap text-[15px] font-medium leading-6 text-[#171717] lg:text-[16px]">
-                    {offer.secondTitle}
-                  </p>
-                )}
-
-                <p className="mt-1 whitespace-nowrap text-[14px] text-[#888] lg:mt-2 lg:text-[15px]">
-                  {offer.discount}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Show all offers */}
-        <div
-          className="
-            mt-2 flex w-full items-center justify-center
-            lg:mt-0 lg:h-[148px] lg:w-auto lg:min-w-[235px] lg:px-5
-          "
-        >
-          <Link
-            to="/products"
-            className="
-              flex h-[54px] w-full items-center justify-center gap-3
-              rounded-[13px] bg-[#edf4fd] px-5
-              text-[14px] font-bold text-primary
-              shadow-[0_3px_7px_rgba(15,23,42,0.14)]
-              transition duration-300
-              hover:bg-[#e2edfb]
-              sm:text-[15px]
-              lg:h-[58px] lg:w-auto lg:px-6
-            "
-          >
-            <ArrowLeft className="h-5 w-5" />
-            <span>عرض كل العروض</span>
-          </Link>
-        </div>
       </div>
     </div>
   )
