@@ -11,9 +11,6 @@ import { MdOutlineDiscount } from "react-icons/md";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { FaRegStar } from "react-icons/fa";
 
-
-
-
 import { stats } from "@/data/products"
 
 const statIcons = [
