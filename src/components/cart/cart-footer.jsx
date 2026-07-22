@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom"
+
 export function CartFooter({
   total,
-  onViewCart,
   onCheckout,
 }) {
+  const navigate = useNavigate()
+
   return (
     <footer
       className="
@@ -12,7 +15,7 @@ export function CartFooter({
     >
       <button
         type="button"
-        onClick={onViewCart}
+        onClick={() => navigate("/cart1")}
         className="
           flex h-11 w-full items-center justify-center
           rounded-[10px] border border-primary
