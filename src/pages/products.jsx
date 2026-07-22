@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import { useNavigate } from "react-router-dom"
 import {
   ChevronDown,
   ChevronLeft,
@@ -10,6 +17,7 @@ import {
 import { Breadcrumb } from "@/components/breadcrumb"
 import { Card } from "@/components/ui/card"
 import { useCart } from "@/context/cart-context"
+import CartPage from "@/pages/showCart"
 import {
   products,
   productTypes,
@@ -25,10 +33,13 @@ function FilterGroup({ title, children }) {
     <div className="border-b border-border py-4 last:border-b-0">
       <button
         type="button"
-        onClick={() => setOpen((previous) => !previous)}
+        onClick={() =>
+          setOpen((previous) => !previous)
+        }
         className="
           flex w-full items-center justify-between
-          text-right text-sm font-bold text-foreground
+          text-right text-sm font-bold
+          text-foreground
         "
       >
         <ChevronDown
@@ -42,7 +53,11 @@ function FilterGroup({ title, children }) {
         <span>{title}</span>
       </button>
 
-      {open && <div className="mt-3 space-y-2">{children}</div>}
+      {open && (
+        <div className="mt-3 space-y-2">
+          {children}
+        </div>
+      )}
     </div>
   )
 }
@@ -136,8 +151,10 @@ function Sidebar({ price, setPrice }) {
   )
 }
 
-function ProductsPageCard({ product }) {
-  const { addItem } = useCart()
+function ProductsPageCard({
+  product,
+  onAddToCart,
+}) {
   const [favorite, setFavorite] = useState(false)
 
   return (
@@ -145,7 +162,8 @@ function ProductsPageCard({ product }) {
       dir="rtl"
       className="
         group relative mx-auto mt-[50px]
-        flex min-h-[310px] w-full max-w-[240px] flex-col
+        flex min-h-[310px] w-full
+        max-w-[240px] flex-col
         rounded-t-[95px] rounded-b-[12px]
         border border-[#ececec] bg-white
         shadow-[0_5px_12px_rgba(0,0,0,0.12)]
@@ -163,8 +181,8 @@ function ProductsPageCard({ product }) {
         }
         className="
           absolute left-[-2px] top-[-42px] z-30
-          flex h-9 w-9 items-center justify-center
-          text-gray-400
+          flex h-9 w-9 items-center
+          justify-center text-gray-400
           transition-colors duration-300
           hover:text-secondary
         "
@@ -192,7 +210,10 @@ function ProductsPageCard({ product }) {
 
       {/* Product image */}
       <img
-        src={product.image || "/placeholder.svg"}
+        src={
+          product.image ||
+          "/placeholder.svg"
+        }
         alt={product.name}
         loading="lazy"
         className="
@@ -221,7 +242,8 @@ function ProductsPageCard({ product }) {
             className="
               rounded-full bg-[#eaf2fe]
               px-2.5 py-1
-              text-[12px] font-medium text-primary
+              text-[12px] font-medium
+              text-primary
             "
           >
             {product.tag || "غسول"}
@@ -231,15 +253,19 @@ function ProductsPageCard({ product }) {
             dir="ltr"
             className="
               flex items-center gap-1
-              text-[9px] font-semibold text-[#333]
+              text-[9px] font-semibold
+              text-[#333]
             "
           >
-            <span>{product.rating || "4.8"}</span>
+            <span>
+              {product.rating || "4.8"}
+            </span>
 
             <Star
               className="
                 h-3.5 w-3.5
-                fill-[#f2b807] text-[#f2b807]
+                fill-[#f2b807]
+                text-[#f2b807]
               "
             />
           </div>
@@ -248,8 +274,9 @@ function ProductsPageCard({ product }) {
         <h3
           className="
             line-clamp-2 min-h-[38px]
-            text-right text-[13px] font-medium
-            leading-[18px] text-[#1f1f1f]
+            text-right text-[13px]
+            font-medium leading-[18px]
+            text-[#1f1f1f]
           "
         >
           {product.name}
@@ -269,7 +296,9 @@ function ProductsPageCard({ product }) {
 
         <button
           type="button"
-          onClick={() => addItem(product)}
+          onClick={() =>
+            onAddToCart(product)
+          }
           className="
             mt-auto flex h-[33px] w-full
             items-center justify-center gap-2
@@ -287,7 +316,10 @@ function ProductsPageCard({ product }) {
   )
 }
 
-function getPaginationItems(currentPage, totalPages) {
+function getPaginationItems(
+  currentPage,
+  totalPages,
+) {
   if (totalPages <= 7) {
     return Array.from(
       { length: totalPages },
@@ -296,7 +328,15 @@ function getPaginationItems(currentPage, totalPages) {
   }
 
   if (currentPage <= 4) {
-    return [1, 2, 3, 4, 5, "...", totalPages]
+    return [
+      1,
+      2,
+      3,
+      4,
+      5,
+      "...",
+      totalPages,
+    ]
   }
 
   if (currentPage >= totalPages - 3) {
@@ -331,10 +371,11 @@ function Pagination({
     return null
   }
 
-  const paginationItems = getPaginationItems(
-    currentPage,
-    totalPages,
-  )
+  const paginationItems =
+    getPaginationItems(
+      currentPage,
+      totalPages,
+    )
 
   return (
     <nav
@@ -350,10 +391,13 @@ function Pagination({
         type="button"
         aria-label="الصفحة السابقة"
         disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
+        onClick={() =>
+          onPageChange(currentPage - 1)
+        }
         className="
-          flex h-8 w-8 items-center justify-center
-          rounded-full bg-primary text-white
+          flex h-8 w-8 items-center
+          justify-center rounded-full
+          bg-primary text-white
           outline-none
           transition-colors duration-200
           hover:bg-[#0b4ab8]
@@ -368,67 +412,88 @@ function Pagination({
         <ChevronRight className="h-4 w-4" />
       </button>
 
-      {paginationItems.map((page, index) => {
-        const isDots = page === "..."
-        const isActive = page === currentPage
+      {paginationItems.map(
+        (page, index) => {
+          const isDots = page === "..."
+          const isActive =
+            page === currentPage
 
-        if (isDots) {
+          if (isDots) {
+            return (
+              <span
+                key={`dots-${index}`}
+                className="
+                  flex h-8 min-w-8
+                  items-center justify-center
+                  text-[11px] font-semibold
+                  text-[#888]
+                "
+              >
+                ...
+              </span>
+            )
+          }
+
           return (
-            <span
-              key={`dots-${index}`}
-              className="
-                flex h-8 min-w-8 items-center
-                justify-center text-[11px]
-                font-semibold text-[#888]
-              "
-            >
-              ...
-            </span>
-          )
-        }
-
-        return (
-          <button
-            key={page}
-            type="button"
-            aria-label={`الصفحة ${page}`}
-            aria-current={isActive ? "page" : undefined}
-            onClick={() => onPageChange(page)}
-            className={`
-              flex h-8 min-w-8 items-center justify-center
-              rounded-full px-2 text-[11px] font-semibold
-              outline-none
-              transition-colors duration-200
-              focus:outline-none focus:ring-0
-              ${
+            <button
+              key={page}
+              type="button"
+              aria-label={`الصفحة ${page}`}
+              aria-current={
                 isActive
-                  ? `
-                    bg-primary text-white
-                    hover:bg-primary hover:text-white
-                    focus:bg-primary focus:text-white
-                  `
-                  : `
-                    bg-[#f1f1f1] text-[#777]
-                    hover:bg-[#e4e4e4] hover:text-[#333]
-                    focus:bg-[#f1f1f1] focus:text-[#777]
-                  `
+                  ? "page"
+                  : undefined
               }
-            `}
-          >
-            {page}
-          </button>
-        )
-      })}
+              onClick={() =>
+                onPageChange(page)
+              }
+              className={`
+                flex h-8 min-w-8
+                items-center justify-center
+                rounded-full px-2
+                text-[11px] font-semibold
+                outline-none
+                transition-colors duration-200
+                focus:outline-none focus:ring-0
+                ${
+                  isActive
+                    ? `
+                      bg-primary text-white
+                      hover:bg-primary
+                      hover:text-white
+                      focus:bg-primary
+                      focus:text-white
+                    `
+                    : `
+                      bg-[#f1f1f1] text-[#777]
+                      hover:bg-[#e4e4e4]
+                      hover:text-[#333]
+                      focus:bg-[#f1f1f1]
+                      focus:text-[#777]
+                    `
+                }
+              `}
+            >
+              {page}
+            </button>
+          )
+        },
+      )}
 
       {/* Next page */}
       <button
         type="button"
         aria-label="الصفحة التالية"
-        disabled={currentPage === totalPages}
-        onClick={() => onPageChange(currentPage + 1)}
+        disabled={
+          currentPage === totalPages
+        }
+        onClick={() =>
+          onPageChange(currentPage + 1)
+        }
         className="
-          flex h-8 w-8 items-center justify-center
-          rounded-full bg-primary text-white
+          flex h-8 w-8 items-center
+          justify-center rounded-full
+          bg-primary text-white
           outline-none
           transition-colors duration-200
           hover:bg-[#0b4ab8]
@@ -447,28 +512,56 @@ function Pagination({
 }
 
 export default function Products() {
-  const [price, setPrice] = useState(500)
-  const [currentPage, setCurrentPage] = useState(1)
+  const navigate = useNavigate()
+  const { addItem } = useCart()
+
+  const [showCart, setShowCart] =
+    useState(false)
+
+  const [cartItems, setCartItems] =
+    useState([])
+
+  const [price, setPrice] =
+    useState(500)
+
+  const [
+    currentPage,
+    setCurrentPage,
+  ] = useState(1)
+
   const [sort, setSort] = useState(
     "الترتيب حسب: الأكثر مبيعا",
   )
 
-  const productsSectionRef = useRef(null)
+  const productsSectionRef =
+    useRef(null)
 
   const sortedProducts = useMemo(() => {
     const productsCopy = [...products]
 
-    if (sort === "الترتيب حسب: الأقل سعراً") {
+    if (
+      sort ===
+      "الترتيب حسب: الأقل سعراً"
+    ) {
       return productsCopy.sort(
-        (firstProduct, secondProduct) =>
+        (
+          firstProduct,
+          secondProduct,
+        ) =>
           Number(firstProduct.price) -
           Number(secondProduct.price),
       )
     }
 
-    if (sort === "الترتيب حسب: الأعلى سعراً") {
+    if (
+      sort ===
+      "الترتيب حسب: الأعلى سعراً"
+    ) {
       return productsCopy.sort(
-        (firstProduct, secondProduct) =>
+        (
+          firstProduct,
+          secondProduct,
+        ) =>
           Number(secondProduct.price) -
           Number(firstProduct.price),
       )
@@ -479,18 +572,25 @@ export default function Products() {
 
   const totalPages = Math.max(
     1,
-    Math.ceil(sortedProducts.length / ITEMS_PER_PAGE),
+    Math.ceil(
+      sortedProducts.length /
+        ITEMS_PER_PAGE,
+    ),
   )
 
   const visibleProducts = useMemo(() => {
     const startIndex =
-      (currentPage - 1) * ITEMS_PER_PAGE
+      (currentPage - 1) *
+      ITEMS_PER_PAGE
 
     return sortedProducts.slice(
       startIndex,
       startIndex + ITEMS_PER_PAGE,
     )
-  }, [currentPage, sortedProducts])
+  }, [
+    currentPage,
+    sortedProducts,
+  ])
 
   useEffect(() => {
     if (currentPage > totalPages) {
@@ -515,114 +615,248 @@ export default function Products() {
     setCurrentPage(page)
 
     window.requestAnimationFrame(() => {
-      productsSectionRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
+      productsSectionRef.current?.scrollIntoView(
+        {
+          behavior: "smooth",
+          block: "start",
+        },
+      )
     })
   }
 
+  const handleAddToCart =
+    useCallback(
+      (product) => {
+        addItem(product)
+
+        setCartItems(
+          (currentItems) => {
+            const existingItem =
+              currentItems.find(
+                (item) =>
+                  item.id ===
+                  product.id,
+              )
+
+            if (existingItem) {
+              return currentItems.map(
+                (item) =>
+                  item.id ===
+                  product.id
+                    ? {
+                        ...item,
+                        quantity:
+                          item.quantity +
+                          1,
+                      }
+                    : item,
+              )
+            }
+
+            return [
+              ...currentItems,
+              {
+                ...product,
+                quantity: 1,
+                tag:
+                  product.tag ||
+                  "احصل عليها الآن",
+              },
+            ]
+          },
+        )
+
+        setShowCart(true)
+      },
+      [addItem],
+    )
+
+  const handleIncrease = (id) => {
+    setCartItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity:
+                item.quantity + 1,
+            }
+          : item,
+      ),
+    )
+  }
+
+  const handleDecrease = (id) => {
+    setCartItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity: Math.max(
+                1,
+                item.quantity - 1,
+              ),
+            }
+          : item,
+      ),
+    )
+  }
+
+  const handleRemove = (id) => {
+    setCartItems((currentItems) =>
+      currentItems.filter(
+        (item) => item.id !== id,
+      ),
+    )
+  }
+
+  const handleCloseCart =
+    useCallback(() => {
+      setShowCart(false)
+    }, [])
+
   return (
-    <main
-      dir="rtl"
-      className="
-        mx-auto max-w-7xl
-        px-4 py-6 md:px-6
-      "
-    >
-      <div className="mb-6">
-        <Breadcrumb
-          items={[
-            {
-              label: "الرئيسية",
-              to: "/",
-            },
-            {
-              label: "الأدوية",
-            },
-          ]}
-        />
-      </div>
-
-      <div className="flex flex-col gap-6 lg:flex-row">
-        <Sidebar
-          price={price}
-          setPrice={setPrice}
-        />
-
-        <div
-          ref={productsSectionRef}
-          className="min-w-0 flex-1 scroll-mt-6"
-        >
-          <div
-            className="
-              mb-8 flex items-center
-              justify-between gap-4
-            "
-          >
-            <h1 className="text-lg font-extrabold text-foreground">
-              المنتجات
-            </h1>
-
-            <div className="relative">
-              <select
-                value={sort}
-                onChange={handleSortChange}
-                className="
-                  h-10 appearance-none
-                  rounded-lg border border-input
-                  bg-card py-0 pl-9 pr-4
-                  text-sm font-semibold text-foreground
-                  focus:outline-none
-                  focus:ring-2 focus:ring-ring/30
-                "
-              >
-                <option>
-                  الترتيب حسب: الأكثر مبيعا
-                </option>
-
-                <option>
-                  الترتيب حسب: الأقل سعراً
-                </option>
-
-                <option>
-                  الترتيب حسب: الأعلى سعراً
-                </option>
-              </select>
-
-              <ChevronDown
-                className="
-                  pointer-events-none absolute
-                  left-3 top-1/2 h-4 w-4
-                  -translate-y-1/2
-                  text-muted-foreground
-                "
-              />
-            </div>
-          </div>
-
-          <div
-            className="
-              grid grid-cols-2
-              items-stretch gap-x-5 gap-y-10
-              sm:grid-cols-3
-            "
-          >
-            {visibleProducts.map((product) => (
-              <ProductsPageCard
-                key={product.id}
-                product={product}
-              />
-            ))}
-          </div>
-
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
+    <>
+      <main
+        dir="rtl"
+        className="
+          mx-auto max-w-7xl
+          px-4 py-6 md:px-6
+        "
+      >
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              {
+                label: "الرئيسية",
+                to: "/",
+              },
+              {
+                label: "الأدوية",
+              },
+            ]}
           />
         </div>
-      </div>
-    </main>
+
+        <div className="flex flex-col gap-6 lg:flex-row">
+          <Sidebar
+            price={price}
+            setPrice={setPrice}
+          />
+
+          <div
+            ref={productsSectionRef}
+            className="
+              min-w-0 flex-1
+              scroll-mt-6
+            "
+          >
+            <div
+              className="
+                mb-8 flex items-center
+                justify-between gap-4
+              "
+            >
+              <h1 className="text-lg font-extrabold text-foreground">
+                المنتجات
+              </h1>
+
+              <div className="relative">
+                <select
+                  value={sort}
+                  onChange={
+                    handleSortChange
+                  }
+                  className="
+                    h-10 appearance-none
+                    rounded-lg border
+                    border-input bg-card
+                    py-0 pl-9 pr-4
+                    text-sm font-semibold
+                    text-foreground
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-ring/30
+                  "
+                >
+                  <option>
+                    الترتيب حسب: الأكثر
+                    مبيعا
+                  </option>
+
+                  <option>
+                    الترتيب حسب: الأقل
+                    سعراً
+                  </option>
+
+                  <option>
+                    الترتيب حسب: الأعلى
+                    سعراً
+                  </option>
+                </select>
+
+                <ChevronDown
+                  className="
+                    pointer-events-none
+                    absolute left-3 top-1/2
+                    h-4 w-4
+                    -translate-y-1/2
+                    text-muted-foreground
+                  "
+                />
+              </div>
+            </div>
+
+            <div
+              className="
+                grid grid-cols-2
+                items-stretch gap-x-5
+                gap-y-10
+                sm:grid-cols-3
+              "
+            >
+              {visibleProducts.map(
+                (product) => (
+                  <ProductsPageCard
+                    key={product.id}
+                    product={product}
+                    onAddToCart={
+                      handleAddToCart
+                    }
+                  />
+                ),
+              )}
+            </div>
+
+            <Pagination
+              currentPage={
+                currentPage
+              }
+              totalPages={totalPages}
+              onPageChange={
+                handlePageChange
+              }
+            />
+          </div>
+        </div>
+      </main>
+
+      <CartPage
+        open={showCart}
+        onClose={handleCloseCart}
+        items={cartItems}
+        onIncrease={handleIncrease}
+        onDecrease={handleDecrease}
+        onRemove={handleRemove}
+        onAddToCart={handleAddToCart}
+        onViewCart={() => {
+          setShowCart(false)
+          navigate("/cart")
+        }}
+        onCheckout={() => {
+          setShowCart(false)
+          navigate("/checkout")
+        }}
+      />
+    </>
   )
 }
