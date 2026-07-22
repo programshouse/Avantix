@@ -13,7 +13,7 @@ export default function Home() {
       <FeaturedSection />
       <PromoBanners />
       <OffersSection />
-      {/* <AboutSection /> */}
+      <AboutSection />
     </main>
   )
 }
